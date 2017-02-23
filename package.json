@@ -4,7 +4,10 @@
   "description": "Track top leaderboards for common routes in an aggregate way",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack -d --watch",
+    "build" : "webpack -p",
+    "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
   },
   "repository": {
     "type": "git",
@@ -27,6 +30,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "serve-static": "^1.11.2",
+    "strava-v3": "^1.12.1",
     "webpack": "^2.2.1"
   },
   "devDependencies": {
