@@ -3,5 +3,5 @@
     "access_token"    :"ae617536fba83ac45cda582941b4e7b6bf82be3b"
     , "client_id"     :"16365"
     , "client_secret" :"3d8533f1a115b1f4e3903548be891daa77a2fa33"
-    , "redirect_uri"  :"http://www.agileedge.com:3001/strava_auth"
+    , "redirect_uri"  :"http://www.agileedge.com:3001/strava_auth.html"
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack -d --watch",
-    "build" : "webpack -p",
+    "build": "webpack -p",
     "start": "nodemon index.js --exec babel-node --presets es2015,stage-2"
   },
   "repository": {
@@ -26,7 +26,9 @@
     "babel-preset-react": "^6.23.0",
     "body-parser": "^1.16.1",
     "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
     "express": "^4.14.1",
+    "express-layout": "^0.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "serve-static": "^1.11.2",
