@@ -2,10 +2,8 @@
 
 const express = require('express');
 const serveStatic = require('serve-static');
-let strava = require('strava-v3');
-
-let link = strava.oauth.getRequestAccessURL({scope: "view_private,write"});
-console.log("The strava Link", link);
+const homeRoutes = require('./routes/home');
+const oauthRoutes = require('./routes/strava-oauth');
 
 const app = express();
 const layout = require('express-layout');
@@ -21,9 +19,8 @@ app.get('/hello', function (req, res) {
   res.send('Hello World');
 });
 
-app.get('/ejs_test', function(req, res) {
-  res.render('index', { title: 'The index page!', oauth_link: link })
-});
+app.get('/test', homeRoutes.show);
+app.get('/strava_auth', oauthRoutes.oauth);
 
 const server = app.listen(3000, function () {
   const host = server.address().address
