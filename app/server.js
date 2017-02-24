@@ -49,7 +49,7 @@ passport.deserializeUser(function(obj, done) {
 //mike passport configs.... move somplace else
 passport.use(new StravaStrategy({
     clientID: 16365,
-    clientSecret: '3d8533f1a115b1f4e3903548be891daa77a2fa33',
+    clientSecret: process.env.STRAVA_CLIENT_SECRET,
     callbackURL: "http://www.agileedge.com:3001/auth/strava/callback"
   },
   function(accessToken, refreshToken, profile, done) {
