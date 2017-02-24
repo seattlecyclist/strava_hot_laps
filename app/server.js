@@ -8,16 +8,19 @@ const oauthRoutes = require('./routes/strava-oauth');
 const passport = require('passport');
 const StravaStrategy = require('passport-strava-oauth2').Strategy
 const layout = require('express-layout');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 
 app.use(serveStatic('public', {'index': 'index.html'}));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({
-  secret: 'keyboard cat',
+app.use(session({
+  secret: 'words kjjjlkjjhkjh9888977',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new MongoStore({ url: 'mongodb://localhost:27017/hot_laps_dev' })
 }));
 
 app.set('view engine', 'ejs');
@@ -34,12 +37,12 @@ app.use(passport.session());
 //   have a database of user records, the complete Strava profile is
 //   serialized and deserialized.
 passport.serializeUser(function(user, done) {
-  console.log("************************* serializingUser", user.displayName);
+  console.log("** serializingUser", user.displayName);
   done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-  console.log("************************* serializingUser", obj.displayName);
+  console.log("** DeserializingUser", obj.displayName);
   done(null, obj);
 });
 
@@ -114,6 +117,7 @@ app.get('/hello', function (req, res) {
   res.send('Hello World');
 });
 
+app.get('/', ensureAuthenticated, homeRoutes.show);
 app.get('/test', ensureAuthenticated, homeRoutes.show);
 app.get('/strava_auth', oauthRoutes.oauth);
 

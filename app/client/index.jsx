@@ -9,6 +9,11 @@ class App extends React.Component {
       </div>
     );
   }
+
+  componentWillMount() {
+      console.log("React App Component Will Mount");
+
+  }
 }
 
 render(<App/>, document.getElementById('app'));
