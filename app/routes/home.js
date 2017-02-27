@@ -9,17 +9,13 @@ let randomDudeActivityId = "317698117";
 let alexanderPerryActivityId = "180358383";
 let chrisWilsomActivityId = "664912153";
 
-
-
 // strava.activities.get({id: rocketSewardActivityId}, function(err,payload) {
 //   console.log("The strava activity'segment_efforts", payload);
 // });
 
-
-
 console.log("The strava Link", link);
 
-exports.show = function(req, res) {
+exports.load = function(req, res) {
   loadSegments();
   res.render('index', { title: 'The index page via router!',
                         user: req.user,
@@ -34,10 +30,10 @@ function loadSegments() {
     per_page: 100,
     start_date_local: '2015-06-04T18:00:02Z',
     end_date_local: '2015-06-04T19:00:02Z'}, function(err,payload) {
-    console.log("The strava segment", payload);
+    // console.log("The strava segment", payload);
 
     payload.forEach(function(segment) {
-      console.log("******");
+      // console.log("******", segment);
       storeSegment(segment);
     });
   });
@@ -48,7 +44,13 @@ function storeSegment(segment) {
     if (err) throw err;
 
     let collection = db.collection('segments');
-    collection.insert(segment);
+
+    collection.findOne({id: segment.id}, function(err, existing) {
+      if (existing === null) {
+        console.log("inserting");
+        collection.insert(segment);
+      }
+    });
 
   });
 

@@ -113,12 +113,11 @@ app.get('/logout', function(req, res){
 
 // END authentication
 
-app.get('/hello', function (req, res) {
-  res.send('Hello World');
+app.get('/', function (req, res) {
+  res.send('Welcome to Hot Laps');
 });
 
-app.get('/', ensureAuthenticated, homeRoutes.show);
-app.get('/test', ensureAuthenticated, homeRoutes.show);
+app.get('/load', ensureAuthenticated, homeRoutes.load);
 app.get('/strava_auth', oauthRoutes.oauth);
 
 const server = app.listen(3000, function () {
