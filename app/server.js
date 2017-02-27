@@ -2,6 +2,7 @@
 
 const express = require('express');
 const serveStatic = require('serve-static');
+const MongoClient = require('mongodb').MongoClient
 
 const homeRoutes = require('./routes/home');
 const oauthRoutes = require('./routes/strava-oauth');
@@ -118,7 +119,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/load', ensureAuthenticated, homeRoutes.load);
+app.get('/average', ensureAuthenticated, homeRoutes.average);
 app.get('/strava_auth', oauthRoutes.oauth);
+
+MongoClient.connect('mongodb://localhost:27017/hot_laps_dev', function (err, db) {
+  if (err) throw err;
+  console.log("Setting up db on app");
+  app.locals.db = db;
+});
+
 
 const server = app.listen(3000, function () {
   const host = server.address().address
